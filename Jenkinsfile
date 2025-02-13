@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/dandrad92/jenkinstest.git'
+                git branch: 'main', credentialsId: 'github-credentials', url: 'https://github.com/dandrad92/jenkinstest.git'
             }
         }
         stage('Build') {
             steps {
-                sh 'echo "Hello from Jenkins"'
+                sh 'echo "Hello Jenkins"'
             }
         }
     }
