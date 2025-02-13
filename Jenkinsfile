@@ -3,7 +3,6 @@ pipeline {
     environment {
         NODE_HOME = '/usr/bin'
         PATH = "$NODE_HOME:$PATH"
-        NPM_CACHE = "$WORKSPACE/.npm"
     }
     stages {
         stage('Checkout') {
@@ -13,9 +12,7 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'npm config set cache $NPM_CACHE'
-                sh 'npm config set registry https://registry.npmmirror.com'
-                sh 'npm install'
+                sh 'npm ci'
             }
         }
         stage('Build Angular') {
@@ -23,7 +20,12 @@ pipeline {
                 sh 'npm run build --configuration=production --max-old-space-size=512'
             }
         }
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+                docker build -t jenk-test:latest .
+                '''
+            }
+        }
     }
 }
-
-
