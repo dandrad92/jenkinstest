@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Build Angular') {
             steps {
-                sh 'npm run build --prod'
+                sh 'npm run build --configuration=production --max-old-space-size=512'
             }
         }
     }
