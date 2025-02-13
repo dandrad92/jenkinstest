@@ -1,13 +1,13 @@
-# Usar una imagen de Nginx como base
+# Imagen base de Nginx
 FROM nginx:latest
 
-# Eliminar archivos predeterminados de Nginx
+# Elimina los archivos por defecto de Nginx
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copiar la aplicación Angular generada en la carpeta dist
+# Copia los archivos de Angular al contenedor
 COPY dist/jenk-test /usr/share/nginx/html
 
-# Copiar una configuración personalizada de Nginx
+# Copia la configuración de Nginx personalizada
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Exponer el puerto 80
