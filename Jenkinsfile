@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh 'npm config set cache $NPM_CACHE'
                 sh 'npm config set registry https://registry.npmmirror.com'
-                sh 'npm ci'
+                sh 'npm install'
             }
         }
         stage('Build Angular') {
