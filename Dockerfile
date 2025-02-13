@@ -1,11 +1,17 @@
-# Usamos una imagen base ligera con Nginx
-FROM nginx:alpine
+# Usar una imagen de Nginx como base
+FROM nginx:latest
 
-# Copiamos la aplicación Angular compilada en "dist"
+# Eliminar archivos predeterminados de Nginx
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copiar la aplicación Angular generada en la carpeta dist
 COPY dist/jenk-test /usr/share/nginx/html
 
-# Exponemos el puerto 80 para servir la app
+# Copiar una configuración personalizada de Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Exponer el puerto 80
 EXPOSE 80
 
-# Comando para ejecutar Nginx en modo foreground
+# Iniciar Nginx
 CMD ["nginx", "-g", "daemon off;"]
